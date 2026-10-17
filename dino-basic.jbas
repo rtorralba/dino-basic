@@ -23,22 +23,24 @@ GO TO @pantalla_inicio
     IF sc>50 THEN LET gp=8
 
 @mover_cactus:
-    LET c1=c1-1: LET c2=c2-1
+    LET c1=c1-1: LET c2=c2-1: IF sc>300 THEN LET c3=c3-1
 
     ' Si un cactus sale de pantalla, reaparece aleatoriamente detras del otro
     IF c1<0 THEN PRINT AT 21,0; " ": LET c1=c2+31+INT (RND*6)
     IF c2<0 THEN PRINT AT 21,0; " ": LET c2=c1+gp
-
-    ' Dibujamos el dino
-    IF py<>oldpy THEN PRINT AT oldpy,5; " ";AT py,5; PAPER 2;" "
+    IF c3<0 THEN PRINT AT 21,0; " ": LET c3=c2+gp
 
     ' Dibujamos los cactus SOLO si ya han entrado en la pantalla
     IF c1<31 THEN PRINT AT 21,c1; PAPER 4;" "; PAPER 1;" "
     IF c2<31 THEN PRINT AT 21,c2; PAPER 4;" "; PAPER 1;" "
+    IF c3<31 AND sc>300 THEN PRINT AT 21,c3; PAPER 4;" "; PAPER 1;" "
+
+    ' Dibujamos el dino
+    IF py<>oldpy THEN PRINT AT oldpy,5; " ";AT py,5; PAPER 2;" "
 
     ' Colisiones
-    IF (c1 = 5 OR c2=5) AND py=21 THEN GO TO @game_over
-    IF (c1=5 OR c2=5) AND py<>21 THEN LET sc=sc+10: BEEP 0.01,40
+    IF (c1 = 5 OR c2=5 OR c3=5) AND py=21 THEN GO TO @game_over
+    IF (c1=5 OR c2=5 OR c3=5) AND py<>21 THEN LET sc=sc+10: BEEP 0.01,40
 
     PAUSE sp
     IF sx=0 THEN GO TO @saltar_mov_sol
@@ -59,7 +61,7 @@ GO TO @pantalla_inicio
 @reinicio:
     BORDER 3: PAPER 1: INK 0: CLS
     ' sc=puntos, c1 y c2=cactus, py=jugador, j=salto, sx=x de sol, sm=puntos para siguiente movimiento del sol
-    LET sc=0: LET gp=12: LET c1=31: LET c2=c1+gp: LET py=21: LET j=0: LET sp=2: LET sm=30: POKE 23560,0
+    LET sc=0: LET gp=12: LET c1=31: LET c2=c1+gp: LET c3=c2+gp: LET py=21: LET j=0: LET sp=2: LET sm=30: POKE 23560,0
     PRINT AT 21,5; PAPER 2;" "
     LET sx=29
 
