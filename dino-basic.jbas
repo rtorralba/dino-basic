@@ -1,0 +1,87 @@
+' =============================================================================
+' DINO BASIC (.jbas)
+' Código fuente estructurado sin números de línea y con etiquetas
+' =============================================================================
+
+' --- INICIALIZACION ---
+DIM y(7): LET y(1)=20: LET y(2)=18: LET y(3)=17: LET y(4)=17: LET y(5)=18: LET y(6)=20: LET y(7)=21
+GO TO @pantalla_inicio
+
+@bucle_principal:
+    LET oldpy=py
+
+    ' Teclado / mando
+    IF PEEK 23560>0 THEN POKE 23560,0: IF j=0 THEN LET j=1
+
+    ' Salto
+    IF j>0 THEN LET py=y(j): LET j=j+1: IF j>7 THEN LET j=0
+
+    ' Actualiza dificultad
+    IF sc>200 THEN LET gp=3: GO TO @mover_cactus
+    IF sc>150 THEN LET gp=5: GO TO @mover_cactus
+    IF sc>100 THEN LET sp=1: GO TO @mover_cactus
+    IF sc>50 THEN LET gp=8
+
+@mover_cactus:
+    LET c1=c1-1: LET c2=c2-1
+
+    ' Si un cactus sale de pantalla, reaparece aleatoriamente detras del otro
+    IF c1<0 THEN PRINT AT 21,0; " ": LET c1=c2+31+INT (RND*6)
+    IF c2<0 THEN PRINT AT 21,0; " ": LET c2=c1+gp
+
+    ' Dibujamos el dino
+    IF py<>oldpy THEN PRINT AT oldpy,5; " ";AT py,5; PAPER 2;" "
+
+    ' Dibujamos los cactus SOLO si ya han entrado en la pantalla
+    IF c1<31 THEN PRINT AT 21,c1; PAPER 4;" "; PAPER 1;" "
+    IF c2<31 THEN PRINT AT 21,c2; PAPER 4;" "; PAPER 1;" "
+
+    ' Colisiones
+    IF (c1 = 5 OR c2=5) AND py=21 THEN GO TO @game_over
+    IF (c1=5 OR c2=5) AND py<>21 THEN LET sc=sc+10: BEEP 0.01,40
+
+    PAUSE sp
+    IF sx=0 THEN GO TO @saltar_mov_sol
+    IF sc=sm THEN LET sx=sx-1: LET sm=sm+30: GO TO @redibujar_sol
+
+@saltar_mov_sol:
+    GO TO @bucle_principal
+
+@game_over:
+    PRINT AT py,5; PAPER 2; INK 4; FLASH 1;" "
+    BEEP 0.15,4: BEEP 0.15,0: BEEP 0.15,-3: BEEP 0.4,-8
+    GO SUB @menu
+    PRINT AT 8,7; PAPER 7;"    SCORE:         "
+    PRINT AT 8,18; PAPER 7;sc
+    PAUSE 1: PAUSE 0
+    GO TO @reinicio
+
+@reinicio:
+    BORDER 3: PAPER 1: INK 0: CLS
+    ' sc=puntos, c1 y c2=cactus, py=jugador, j=salto, sx=x de sol, sm=puntos para siguiente movimiento del sol
+    LET sc=0: LET gp=12: LET c1=31: LET c2=c1+gp: LET py=21: LET j=0: LET sp=2: LET sm=30: POKE 23560,0
+    PRINT AT 21,5; PAPER 2;" "
+    LET sx=29
+
+@redibujar_sol:
+    ' Dibujar el sol
+    PRINT AT 4,0; PAPER 1;"  ";AT 5,0; PAPER 1;"  "
+    PRINT AT 4,sx; PAPER 6;"  "; PAPER 1;" ";AT 5,sx; PAPER 6;"  "; PAPER 1;" "
+    GO TO @bucle_principal
+
+@pantalla_inicio:
+    BORDER 3: PAPER 1: INK 0: CLS
+    GO SUB @menu
+    PAUSE 0
+    GO TO @reinicio
+
+@menu:
+    ' Subrutina: Dibujar marco y titulo
+    PRINT AT 3,7; PAPER 7;"                   "
+    PRINT AT 4,7; PAPER 7;"    DINO BASIC     "
+    PRINT AT 5,7; PAPER 7;"                   "
+    PRINT AT 6,7; PAPER 7;"  PULSA UNA TECLA  "
+    PRINT AT 7,7; PAPER 7;"                   "
+    PRINT AT 8,7; PAPER 7;"    SCORE: 0       "
+    PRINT AT 9,7; PAPER 7;"                   "
+    RETURN
