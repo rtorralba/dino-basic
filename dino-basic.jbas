@@ -5,10 +5,14 @@
 
 ' --- INICIALIZACION ---
 LET py=0: LET oldpy=0: LET c1=0: LET c2=0: LET c3=0: LET j=0: LET sc=0: LET pt=0: LET nx=0: LET nc=0: LET kx=0: LET kc=0
-LET y$ = CHR$ 20 + CHR$ 18 + CHR$ 17 + CHR$ 17 + CHR$ 18 + CHR$ 20 + CHR$ 21
+LET y$ = CHR$ 19 + CHR$ 17 + CHR$ 16 + CHR$ 16 + CHR$ 17 + CHR$ 19 + CHR$ 20
 LET hs=0
 LET c$ = CHR$ 17 + CHR$ 4 + " " + CHR$ 17 + CHR$ 1 + " "
 LET p$  = CHR$ 17 + CHR$ 3 + CHR$ 16 + CHR$ 2 + CHR$ 18 + CHR$ 1 + " " + CHR$ 17 + CHR$ 1 + CHR$ 18 + CHR$ 0 + " "
+LET f$=""
+FOR i=1 TO 16
+LET f$=f$+CHR$ 17+CHR$ 6+CHR$ 16+CHR$ 7+CHR$ 19+CHR$ 0+CHR$ 18+CHR$ 1+" "+CHR$ 17+CHR$ 7+CHR$ 16+CHR$ 6+CHR$ 19+CHR$ 0+CHR$ 18+CHR$ 1+" "
+NEXT i
 GO TO @pantalla_inicio
 
 @bucle_principal:
@@ -24,15 +28,15 @@ GO TO @pantalla_inicio
     LET c1=c1-1: LET c2=c2-1: IF sc>300 THEN LET c3=c3-1
 
     ' Si un cactus sale de pantalla, reaparece aleatoriamente detras del otro
-    IF c1<0 THEN PRINT AT 21,0; " ": LET c1=c2+31+INT (RND*6)
-    IF c2<0 THEN PRINT AT 21,0; " "; AT 17,0; " ":LET c2=c1+gp: IF sc>400 THEN LET pt=1
-    IF c3<0 THEN PRINT AT 21,0; " ": LET c3=c2+gp
+    IF c1<0 THEN PRINT AT 20,0; " ": LET c1=c2+31+INT (RND*6)
+    IF c2<0 THEN PRINT AT 20,0; " "; AT 16,0; " ":LET c2=c1+gp: IF sc>400 THEN LET pt=1
+    IF c3<0 THEN PRINT AT 20,0; " ": LET c3=c2+gp
 
     ' Dibujamos los cactus SOLO si ya han entrado en la pantalla
-    IF c1<31 THEN PRINT AT 21,c1; c$
-    IF c2<31 THEN PRINT AT 21,c2; c$
-    IF c3<31 THEN IF sc>300 THEN PRINT AT 21,c3; c$
-    IF pt THEN IF c2<31 THEN PRINT AT 17,c2; p$
+    IF c1<31 THEN PRINT AT 20,c1; c$
+    IF c2<31 THEN PRINT AT 20,c2; c$
+    IF c3<31 THEN IF sc>300 THEN PRINT AT 20,c3; c$
+    IF pt THEN IF c2<31 THEN PRINT AT 16,c2; p$
 
     ' Dibujamos el dino
     IF py<>oldpy THEN PRINT AT oldpy,5; " ";AT py,5; PAPER 2;" "
@@ -40,10 +44,10 @@ GO TO @pantalla_inicio
     ' Colisiones
     IF c1=5 OR c2=5 THEN GO TO @hay_obstaculo
     IF sc>300 THEN IF c3=5 THEN GO TO @hay_obstaculo
-    IF pt THEN IF c2=5 THEN IF py=17 THEN GO TO @game_over
+    IF pt THEN IF c2=5 THEN IF py=16 THEN GO TO @game_over
     GO TO @fin_colision
     @hay_obstaculo:
-        IF py=21 THEN GO TO @game_over
+        IF py=20 THEN GO TO @game_over
         LET sc=sc+1: BORDER 6: GO SUB @actualizarMarcadorYDificultad: BORDER 3
     @fin_colision:
 
@@ -92,9 +96,10 @@ GO TO @pantalla_inicio
 
 @reinicio:
     BORDER 3: PAPER 1: INK 0: CLS
+    PRINT AT 21,0; f$; FLASH 0
     ' sc=puntos, c1 y c2=cactus, pt=pterodactilo, py=jugador, j=salto, sx=x de sol, sm=puntos para siguiente movimiento del sol
-    LET sc=0: LET gp=12: LET c1=31: LET c2=c1+gp: LET c3=c2+gp: LET pt=0: LET py=21: LET j=0: LET sm=3: LET nc=0: LET kc=0: LET dig=0: POKE 23560,0
-    PRINT AT 21,5; PAPER 2;" "
+    LET sc=0: LET gp=12: LET c1=31: LET c2=c1+gp: LET c3=c2+gp: LET pt=0: LET py=20: LET j=0: LET sm=3: LET nc=0: LET kc=0: LET dig=0: POKE 23560,0
+    PRINT AT 20,5; PAPER 2;" "
     LET sx=29: LET nx=22: LET kx=8
     GO SUB @actualizarMarcadorYDificultad
     GO SUB @redibujar_sol
@@ -103,18 +108,18 @@ GO TO @pantalla_inicio
     GO TO @bucle_principal
 
 @redibujar_sol:
-    PRINT AT 8,0; PAPER 1;"  ";AT 9,0; PAPER 1;"  "
-    PRINT AT 8,sx; PAPER 6;"  "; PAPER 1;" ";AT 9,sx; PAPER 6;"  "; PAPER 1;" "
+    PRINT AT 6,0; PAPER 1;"  ";AT 7,0; PAPER 1;"  "
+    PRINT AT 6,sx; PAPER 6;"  "; PAPER 1;" ";AT 7,sx; PAPER 6;"  "; PAPER 1;" "
     RETURN
 
 @redibujar_nube:
-    IF nx<0 THEN PRINT AT 14,0; PAPER 1;"    "; AT 15,0; PAPER 1;"     ": LET nx=27
-    PRINT AT 14,nx+1; PAPER 7;"  "; PAPER 1;" "; AT 15,nx; PAPER 7;"    "; PAPER 1;" "
+    IF nx<0 THEN PRINT AT 13,0; PAPER 1;"    "; AT 14,0; PAPER 1;"     ": LET nx=27
+    PRINT AT 13,nx+1; PAPER 7;"  "; PAPER 1;" "; AT 14,nx; PAPER 7;"    "; PAPER 1;" "
     RETURN
 
 @redibujar_nube_pequena:
-    IF kx<0 THEN PRINT AT 11,0; PAPER 1;"   "; AT 12,0; PAPER 1;"    ": LET kx=28
-    PRINT AT 11,kx+1; PAPER 7;" "; PAPER 1;" "; AT 12,kx; PAPER 7;"   "; PAPER 1;" "
+    IF kx<0 THEN PRINT AT 9,0; PAPER 1;"   "; AT 10,0; PAPER 1;"    ": LET kx=28
+    PRINT AT 9,kx+1; PAPER 7;" "; PAPER 1;" "; AT 10,kx; PAPER 7;"   "; PAPER 1;" "
     RETURN
 
 @pantalla_inicio:
