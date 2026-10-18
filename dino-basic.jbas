@@ -109,7 +109,7 @@ GO TO @pantalla_inicio
 
 @redibujar_sol:
     PRINT AT 6,0; PAPER 1;"  ";AT 7,0; PAPER 1;"  "
-    PRINT AT 6,sx; PAPER 6;"  "; PAPER 1;" ";AT 7,sx; PAPER 6;"  "; PAPER 1;" "
+    PRINT AT 6,sx; BRIGHT 1; PAPER 6; "  "; BRIGHT 0; PAPER 1; " "; AT 7,sx; BRIGHT 1; PAPER 6; "  "; PAPER 1; BRIGHT 0;" "
     RETURN
 
 @redibujar_nube:
