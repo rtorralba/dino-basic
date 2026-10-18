@@ -68,7 +68,6 @@ GO TO @pantalla_inicio
     LET sx=29
 
 @redibujar_sol:
-    ' Dibujar el sol
     PRINT AT 4,0; PAPER 1;"  ";AT 5,0; PAPER 1;"  "
     PRINT AT 4,sx; PAPER 6;"  "; PAPER 1;" ";AT 5,sx; PAPER 6;"  "; PAPER 1;" "
     GO TO @bucle_principal
@@ -80,7 +79,6 @@ GO TO @pantalla_inicio
     GO TO @reinicio
 
 @menu:
-    ' Subrutina: Dibujar marco y titulo
     PRINT AT 3,7; PAPER 7;"                   "
     PRINT AT 4,7; PAPER 7;"    DINO BASIC     "
     PRINT AT 5,7; PAPER 7;"                   "
