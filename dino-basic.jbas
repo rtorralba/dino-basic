@@ -3,6 +3,10 @@
 ' Código fuente estructurado sin números de línea y con etiquetas
 ' =============================================================================
 
+' --- LOAD SCREEN ---
+PAPER 1: CLS
+PRINT AT 10, 10; INK 2;"LOADING..."
+
 ' --- INICIALIZACION ---
 LET py=0: LET oldpy=0: LET c1=0: LET c2=0: LET c3=0: LET j=0: LET sc=0: LET pt=0: LET nx=0: LET nc=0: LET kx=0: LET kc=0
 LET y$ = CHR$ 19 + CHR$ 17 + CHR$ 16 + CHR$ 16 + CHR$ 17 + CHR$ 19 + CHR$ 20
