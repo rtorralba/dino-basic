@@ -19,23 +19,23 @@ GO TO @pantalla_inicio
     LET oldpy=py
 
     ' Teclado / mando
-   IF PEEK 23560 THEN POKE 23560,0: IF j=0 THEN LET j=1
+    IF PEEK 23560 THEN POKE 23560,0: IF j=0 THEN LET j=1
 
     ' Salto
     IF j>0 THEN LET py=CODE y$(j): LET j=j+1: IF j>7 THEN LET j=0
 
 @mover_cactus:
-    LET c1=c1-1: LET c2=c2-1: IF sc>300 THEN LET c3=c3-1
+    LET c1=c1-1: LET c2=c2-1: IF sc>30 THEN LET c3=c3-1
 
     ' Si un cactus sale de pantalla, reaparece aleatoriamente detras del otro
     IF c1<0 THEN PRINT AT 20,0; " ": LET c1=c2+31+INT (RND*6)
-    IF c2<0 THEN PRINT AT 20,0; " "; AT 16,0; " ":LET c2=c1+gp: IF sc>400 THEN LET pt=1
+    IF c2<0 THEN PRINT AT 20,0; " "; AT 16,0; " ":LET c2=c1+gp: IF sc>40 THEN LET pt=1
     IF c3<0 THEN PRINT AT 20,0; " ": LET c3=c2+gp
 
     ' Dibujamos los cactus SOLO si ya han entrado en la pantalla
     IF c1<31 THEN PRINT AT 20,c1; c$
     IF c2<31 THEN PRINT AT 20,c2; c$
-    IF c3<31 THEN IF sc>300 THEN PRINT AT 20,c3; c$
+    IF c3<31 THEN IF sc>30 THEN PRINT AT 20,c3; c$
     IF pt THEN IF c2<31 THEN PRINT AT 16,c2; p$
 
     ' Dibujamos el dino
@@ -43,7 +43,7 @@ GO TO @pantalla_inicio
 
     ' Colisiones
     IF c1=5 OR c2=5 THEN GO TO @hay_obstaculo
-    IF sc>300 THEN IF c3=5 THEN GO TO @hay_obstaculo
+    IF sc>30 THEN IF c3=5 THEN GO TO @hay_obstaculo
     IF pt THEN IF c2=5 THEN IF py=16 THEN GO TO @game_over
     GO TO @fin_colision
     @hay_obstaculo:
