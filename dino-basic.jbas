@@ -26,9 +26,9 @@ GO TO @pantalla_inicio
     LET c1=c1-1: LET c2=c2-1: IF sc>30 THEN LET c3=c3-1
 
     ' Si un cactus sale de pantalla, reaparece aleatoriamente detras del otro
-    IF c1<0 THEN PRINT AT 20, 0; " ": LET c1=c2+31+INT (RND*6)
-    IF c2<0 THEN PRINT AT 20, 0; " "; AT 16, 0; " ": LET c2=c1+gp: IF sc>40 THEN LET pt=1
-    IF c3<0 THEN PRINT AT 20, 0; " ": LET c3=c2+gp
+    IF c1<0 THEN PRINT AT 20, 0; " ": LET c1=c2+31+INT (RND*6): GO SUB @point
+    IF c2<0 THEN PRINT AT 20, 0; " "; AT 16, 0; " ": LET c2=c1+gp: GO SUB @point: IF sc>40 THEN LET pt=1
+    IF c3<0 THEN PRINT AT 20, 0; " ": LET c3=c2+gp: GO SUB @point
 
     ' Dibujamos los cactus SOLO si ya han entrado en la pantalla
     IF c1<31 THEN PRINT AT 20,c1; c$
@@ -40,19 +40,18 @@ GO TO @pantalla_inicio
     IF py<>oldpy THEN PRINT AT oldpy, 5; " "; AT py, 5; PAPER 2; " "
 
     ' Colisiones
-    IF c1=5 OR c2=5 THEN GO TO @hay_obstaculo
-    IF sc>30 THEN IF c3=5 THEN GO TO @hay_obstaculo
+    IF c1=5 OR c2=5 THEN IF py=20 THEN GO TO @game_over
+    IF sc>30 THEN IF c3=5 THEN IF py=20 THEN GO TO @game_over
     IF pt THEN IF c2=5 THEN IF py=16 THEN GO TO @game_over
-    GO TO @fin_colision
-    @hay_obstaculo:
-        IF py=20 THEN GO TO @game_over
-        LET sc=sc+1: BORDER 6: GO SUB @actualizarMarcadorYDificultad: BEEP 0.01,40: BORDER 3
-    @fin_colision:
 
-    LET nc=nc+1: IF nc=4 THEN LET nc=0: LET nx=nx-1: GO SUB @redibujar_nube
-    LET kc=kc+1: IF kc=8 THEN LET kc=0: LET kx=kx-1: GO SUB @redibujar_nube_pequena
+    LET nc=nc+1: IF nc=12 THEN LET nc=0: LET nx=nx-1: GO SUB @redibujar_nube
+    LET kc=kc+1: IF kc=20 THEN LET kc=0: LET kx=kx-1: GO SUB @redibujar_nube_pequena
 
     GO TO @bucle_principal
+
+@point:
+    LET sc=sc+1: BORDER 6: GO SUB @actualizarMarcadorYDificultad: BEEP 0.01,40: BORDER 3
+    RETURN
 
 @actualizarMarcadorYDificultad:
     ' 1. Unidades: cambian en cada punto y se imprimen siempre
