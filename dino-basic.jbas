@@ -23,25 +23,24 @@ GO TO @pantalla_inicio
     IF j>0 THEN LET py=CODE y$(j): LET j=j+1: IF j>7 THEN LET j=0
 
 @mover_cactus:
-    LET c1=c1-1: LET c2=c2-1: IF sc>30 THEN LET c3=c3-1
+    LET c1=c1-1: LET c2=c2-1: IF sc>30 THEN LET c3=c3-1: IF c3<0 THEN PRINT AT 20, 0; " ": LET c3=c2+gp: GO SUB @point
 
     ' Si un cactus sale de pantalla, reaparece aleatoriamente detras del otro
     IF c1<0 THEN PRINT AT 20, 0; " ": LET c1=c2+31+INT (RND*6): GO SUB @point
     IF c2<0 THEN PRINT AT 20, 0; " "; AT 16, 0; " ": LET c2=c1+gp: GO SUB @point: IF sc>40 THEN LET pt=1
-    IF c3<0 THEN PRINT AT 20, 0; " ": LET c3=c2+gp: GO SUB @point
 
     ' Dibujamos los cactus SOLO si ya han entrado en la pantalla
     IF c1<31 THEN PRINT AT 20,c1; c$
     IF c2<31 THEN PRINT AT 20,c2; c$
-    IF c3<31 THEN IF sc>30 THEN PRINT AT 20,c3; c$
+    IF sc>30 THEN IF c3<31 THEN PRINT AT 20,c3; c$
     IF pt THEN IF c2<31 THEN PRINT AT 16,c2; p$
 
     ' Dibujamos el dino
     IF py<>oldpy THEN PRINT AT oldpy, 5; " "; AT py, 5; PAPER 2; " "
 
     ' Colisiones
-    IF c1=5 OR c2=5 THEN IF py=20 THEN GO TO @game_over
-    IF sc>30 THEN IF c3=5 THEN IF py=20 THEN GO TO @game_over
+    IF py=20 THEN IF c1=5 OR c2=5 THEN GO TO @game_over
+    IF py=20 THEN IF sc>30 THEN IF c3=5 THEN GO TO @game_over
     IF pt THEN IF c2=5 THEN IF py=16 THEN GO TO @game_over
 
     LET nc=nc+1: IF nc=12 THEN LET nc=0: LET nx=nx-1: GO SUB @redibujar_nube
