@@ -7,7 +7,6 @@ GO TO @pantalla_inicio
     ' Salto
     IF j THEN LET py=CODE y$(j): LET j=j+1: IF j>7 THEN LET j=0
 
-@mover_cactus:
     LET c1=c1-1: LET c2=c2-1: IF sc>30 THEN LET c3=c3-1: IF c3<0 THEN PRINT AT 20, 0; " ": LET c3=c2+gp: GO SUB @point
 
     ' Si un cactus sale de pantalla, reaparece aleatoriamente detras del otro
@@ -93,13 +92,13 @@ GO TO @pantalla_inicio
     RETURN
 
 @redibujar_nube:
-    IF nx<0 THEN PRINT AT 13, 0; PAPER 1; "    "; AT 14, 0; PAPER 1; "     ": LET nx=27
-    PRINT AT 13, nx+1; PAPER 7; "  "; PAPER 1; " "; AT 14, nx; PAPER 7; "    "; PAPER 1; " "
+    IF nx<0 THEN PRINT AT 13, 0; PAPER 1; "   "; AT 14, 0; "     ": LET nx=27
+    PRINT AT 13, nx+1; n$; AT 14, nx; m$
     RETURN
 
 @redibujar_nube_pequena:
-    IF kx<0 THEN PRINT AT 9, 0; PAPER 1; "   "; AT 10, 0; PAPER 1; "    ": LET kx=28
-    PRINT AT 9, kx+1; PAPER 7; " "; PAPER 1; " "; AT 10, kx; PAPER 7; "   "; PAPER 1; " "
+    IF kx<0 THEN PRINT AT 9, 0; PAPER 1; "  "; AT 10, 0; "    ": LET kx=28
+    PRINT AT 9, kx+1; a$; AT 10, kx; b$
     RETURN
 
 @pantalla_inicio:
@@ -110,6 +109,11 @@ GO TO @pantalla_inicio
     LET c$ = "{PAPER 4} {PAPER 1} "
     LET p$ = "{PAPER 3}{INK 2}{FLASH 1} {PAPER 1}{FLASH 0} "
     LET f$=""
+    LET n$ = "{PAPER 7}  {PAPER 1} "
+    LET m$ = "{PAPER 7}    {PAPER 1} "
+    LET a$ = "{PAPER 7} {PAPER 1} "
+    LET b$ = "{PAPER 7}   {PAPER 1} "
+
     FOR i=1 TO 16
     LET f$=f$ + "{PAPER 6}{INK 7}{BRIGHT 0}{FLASH 1} {PAPER 7}{INK 6}{BRIGHT 0}{FLASH 1} "
     NEXT i
