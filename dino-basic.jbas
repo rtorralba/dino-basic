@@ -55,16 +55,14 @@ GO TO @pantalla_inicio
     IF u=1 THEN PRINT "{AT 1,5}{PAPER 1} {PAPER 2} {PAPER 1} {AT 2,5} {PAPER 2} {PAPER 1} {AT 3,5} {PAPER 2} {PAPER 1} {AT 4,5} {PAPER 2} {PAPER 1} {AT 5,5} {PAPER 2} {PAPER 1} ": RETURN
     IF u=2 THEN PRINT "{AT 1,5}{PAPER 2}   {AT 2,5}{PAPER 1}  {PAPER 2} {AT 3,5}   {AT 4,5} {PAPER 1}  {AT 5,5}{PAPER 2}   ": RETURN
     IF u=3 THEN PRINT "{AT 1,5}{PAPER 2}   {AT 2,5}{PAPER 1}  {PAPER 2} {AT 3,5}   {AT 4,5}{PAPER 1}  {PAPER 2} {AT 5,5}   ": RETURN
-    IF u=4 THEN PRINT "{AT 1,5}{PAPER 2} {PAPER 1} {PAPER 2} {AT 2,5} {PAPER 1} {PAPER 2} {AT 3,5}   {AT 4,5}{PAPER 1}  {PAPER 2} {AT 5,5}{PAPER 1}  {PAPER 2} ": RETURN
-    RETURN
+    PRINT "{AT 1,5}{PAPER 2} {PAPER 1} {PAPER 2} {AT 2,5} {PAPER 1} {PAPER 2} {AT 3,5}   {AT 4,5}{PAPER 1}  {PAPER 2} {AT 5,5}{PAPER 1}  {PAPER 2} ": RETURN
 
 @u_5:
     IF u=5 THEN PRINT "{AT 1,5}{PAPER 2}   {AT 2,5} {PAPER 1}  {AT 3,5}{PAPER 2}   {AT 4,5}{PAPER 1}  {PAPER 2} {AT 5,5}   ": RETURN
     IF u=6 THEN PRINT "{AT 1,5}{PAPER 2}   {AT 2,5} {PAPER 1}  {AT 3,5}{PAPER 2}   {AT 4,5} {PAPER 1} {PAPER 2} {AT 5,5}   ": RETURN
     IF u=7 THEN PRINT "{AT 1,5}{PAPER 2}   {AT 2,5}{PAPER 1}  {PAPER 2} {AT 3,5}{PAPER 1}  {PAPER 2} {AT 4,5}{PAPER 1}  {PAPER 2} {AT 5,5}{PAPER 1}  {PAPER 2} ": RETURN
     IF u=8 THEN PRINT "{AT 1,5}{PAPER 2}   {AT 2,5} {PAPER 1} {PAPER 2} {AT 3,5}   {AT 4,5} {PAPER 1} {PAPER 2} {AT 5,5}   ": RETURN
-    IF u=9 THEN PRINT "{AT 1,5}{PAPER 2}   {AT 2,5} {PAPER 1} {PAPER 2} {AT 3,5}   {AT 4,5}{PAPER 1}  {PAPER 2} {AT 5,5}{PAPER 1}  {PAPER 2} ": RETURN
-    RETURN
+    PRINT "{AT 1,5}{PAPER 2}   {AT 2,5} {PAPER 1} {PAPER 2} {AT 3,5}   {AT 4,5}{PAPER 1}  {PAPER 2} {AT 5,5}{PAPER 1}  {PAPER 2} ": RETURN
 
 @imprimir_decenas:
     IF d > 4 THEN GO TO @d_5
@@ -72,23 +70,20 @@ GO TO @pantalla_inicio
     IF d=1 THEN PRINT "{AT 1,1}{PAPER 1} {PAPER 2} {PAPER 1} {AT 2,1} {PAPER 2} {PAPER 1} {AT 3,1} {PAPER 2} {PAPER 1} {AT 4,1} {PAPER 2} {PAPER 1} {AT 5,1} {PAPER 2} {PAPER 1} ": RETURN
     IF d=2 THEN PRINT "{AT 1,1}{PAPER 2}   {AT 2,1}{PAPER 1}  {PAPER 2} {AT 3,1}   {AT 4,1} {PAPER 1}  {AT 5,1}{PAPER 2}   ": RETURN
     IF d=3 THEN PRINT "{AT 1,1}{PAPER 2}   {AT 2,1}{PAPER 1}  {PAPER 2} {AT 3,1}   {AT 4,1}{PAPER 1}  {PAPER 2} {AT 5,1}   ": RETURN
-    IF d=4 THEN PRINT "{AT 1,1}{PAPER 2} {PAPER 1} {PAPER 2} {AT 2,1} {PAPER 1} {PAPER 2} {AT 3,1}   {AT 4,1}{PAPER 1}  {PAPER 2} {AT 5,1}{PAPER 1}  {PAPER 2} ": RETURN
-    RETURN
+    PRINT "{AT 1,1}{PAPER 2} {PAPER 1} {PAPER 2} {AT 2,1} {PAPER 1} {PAPER 2} {AT 3,1}   {AT 4,1}{PAPER 1}  {PAPER 2} {AT 5,1}{PAPER 1}  {PAPER 2} ": RETURN
 
 @d_5:
     IF d=5 THEN PRINT "{AT 1,1}{PAPER 2}   {AT 2,1} {PAPER 1}  {AT 3,1}{PAPER 2}   {AT 4,1}{PAPER 1}  {PAPER 2} {AT 5,1}   ": RETURN
     IF d=6 THEN PRINT "{AT 1,1}{PAPER 2}   {AT 2,1} {PAPER 1}  {AT 3,1}{PAPER 2}   {AT 4,1} {PAPER 1} {PAPER 2} {AT 5,1}   ": RETURN
     IF d=7 THEN PRINT "{AT 1,1}{PAPER 2}   {AT 2,1}{PAPER 1}  {PAPER 2} {AT 3,1}{PAPER 1}  {PAPER 2} {AT 4,1}{PAPER 1}  {PAPER 2} {AT 5,1}{PAPER 1}  {PAPER 2} ": RETURN
     IF d=8 THEN PRINT "{AT 1,1}{PAPER 2}   {AT 2,1} {PAPER 1} {PAPER 2} {AT 3,1}   {AT 4,1} {PAPER 1} {PAPER 2} {AT 5,1}   ": RETURN
-    IF d=9 THEN PRINT "{AT 1,1}{PAPER 2}   {AT 2,1} {PAPER 1} {PAPER 2} {AT 3,1}   {AT 4,1}{PAPER 1}  {PAPER 2} {AT 5,1}{PAPER 1}  {PAPER 2} ": RETURN
-    RETURN
+    PRINT "{AT 1,1}{PAPER 2}   {AT 2,1} {PAPER 1} {PAPER 2} {AT 3,1}   {AT 4,1}{PAPER 1}  {PAPER 2} {AT 5,1}{PAPER 1}  {PAPER 2} ": RETURN
 
 @game_over:
     IF sc>hs THEN LET hs=sc
     PRINT AT py, 5; PAPER 2; INK 4; FLASH 1; " "
     BEEP 0.15,4: BEEP 0.15,0: BEEP 0.15,-3: BEEP 0.4,-8
     GO SUB @menu
-    PRINT AT 12, 7; PAPER 7; "  HIGH SCORE:  "; hs
     PAUSE 1: PAUSE 0
     GO TO @reinicio
 
@@ -109,7 +104,6 @@ GO TO @pantalla_inicio
     GO TO @bucle_principal
 
 @redibujar_sol:
-    PRINT AT 6, 0; PAPER 1; "  "; AT 7, 0; PAPER 1; "  "
     PRINT AT 6, sx; BRIGHT 1; PAPER 6; "  "; BRIGHT 0; PAPER 1; " "; AT 7, sx; BRIGHT 1; PAPER 6; "  "; PAPER 1; BRIGHT 0; " "
     RETURN
 
@@ -151,6 +145,6 @@ GO TO @pantalla_inicio
     PRINT AT 9, 7; PAPER 7;  "                   "
     PRINT AT 10, 7; PAPER 7; "  PULSA UNA TECLA  "
     PRINT AT 11, 7; PAPER 7; "                   "
-    PRINT AT 12, 7; PAPER 7; "   HIGH SCORE: 0   "
+    PRINT AT 12, 7; PAPER 7; "                   "; AT 12, 9; "HIGH SCORE:"; hs
     PRINT AT 13, 7; PAPER 7; "                   "
     RETURN
