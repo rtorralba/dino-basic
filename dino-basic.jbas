@@ -7,6 +7,8 @@ GO TO @pantalla_inicio
     ' Salto
     IF j THEN LET py=CODE y$(j): LET j=j+1: IF j>7 THEN LET j=0
 
+    IF su THEN LET su=0: GO SUB @actualizarMarcadorYDificultad
+
     LET c1=c1-1: LET c2=c2-1: IF sc>30 THEN LET c3=c3-1: IF c3<0 THEN PRINT AT 20, 0; " ": LET c3=c2+gp: GO SUB @point
 
     ' Si un cactus sale de pantalla, reaparece aleatoriamente detras del otro
@@ -32,40 +34,53 @@ GO TO @pantalla_inicio
     GO TO @bucle_principal
 
 @point:
-    LET sc=sc+1: BORDER 6: BEEP 0.005,40: BORDER 3: GO SUB @actualizarMarcadorYDificultad
+    LET sc=sc+1: BORDER 6: BEEP 0.001,40: BORDER 3: LET su=1
     RETURN
 
 @actualizarMarcadorYDificultad:
-    ' 1. Unidades: cambian en cada punto y se imprimen siempre
     LET u = u + 1
-    IF u = 10 THEN LET u = 0: LET d = d + 1: LET dig = d: LET col = 1: GO SUB @imprimirDigito
-    LET dig = u: LET col = 5: GO SUB @imprimirDigito
+    IF u = 10 THEN LET u = 0: LET d = d + 1: GO SUB @imprimir_decenas
+    GO SUB @imprimir_unidades
 
     IF sx>0 THEN IF sc=sm THEN LET sx=sx-1: LET sm=sm+3: GO SUB @redibujar_sol
 
-    ' Actualiza dificultad
-    IF sc>20 THEN LET gp=4: RETURN
-    IF sc>15 THEN LET gp=5: RETURN
-    IF sc>5 THEN LET gp=8: RETURN
+    IF sc=6 THEN LET gp=8
+    IF sc=16 THEN LET gp=5
+    IF sc=21 THEN LET gp=4
     RETURN
 
-@imprimirDigito:
-    IF dig > 4 THEN GO TO @dig_5
-    IF dig=0 THEN PRINT AT 1,col; PAPER 2; "   "; AT 2,col; " "; PAPER 1; " "; PAPER 2; " "; AT 3,col; " "; PAPER 1; " "; PAPER 2; " "; AT 4,col; " "; PAPER 1; " "; PAPER 2; " "; AT 5,col; "   ": RETURN
-    IF dig=1 THEN PRINT AT 1,col; PAPER 1; " "; PAPER 2; " "; PAPER 1; " "; AT 2,col; " "; PAPER 2; " "; PAPER 1; " "; AT 3,col; " "; PAPER 2; " "; PAPER 1; " "; AT 4,col; " "; PAPER 2; " "; PAPER 1; " "; AT 5,col; " "; PAPER 2; " "; PAPER 1; " ": RETURN
-    IF dig=2 THEN PRINT AT 1,col; PAPER 2; "   "; AT 2,col; PAPER 1; "  "; PAPER 2; " "; AT 3,col; "   "; AT 4,col; " "; PAPER 1; "  "; AT 5,col; PAPER 2; "   ": RETURN
-    IF dig=3 THEN PRINT AT 1,col; PAPER 2; "   "; AT 2,col; PAPER 1; "  "; PAPER 2; " "; AT 3,col; "   "; AT 4,col; PAPER 1; "  "; PAPER 2; " "; AT 5,col; "   ": RETURN
-    IF dig=4 THEN PRINT AT 1,col; PAPER 2; " "; PAPER 1; " "; PAPER 2; " "; AT 2,col; " "; PAPER 1; " "; PAPER 2; " "; AT 3,col; "   "; AT 4,col; PAPER 1; "  "; PAPER 2; " "; AT 5,col; PAPER 1; "  "; PAPER 2; " ": RETURN
-
+@imprimir_unidades:
+    IF u > 4 THEN GO TO @u_5
+    IF u=0 THEN PRINT "{AT 1,5}{PAPER 2}   {AT 2,5} {PAPER 1} {PAPER 2} {AT 3,5} {PAPER 1} {PAPER 2} {AT 4,5} {PAPER 1} {PAPER 2} {AT 5,5}   ": RETURN
+    IF u=1 THEN PRINT "{AT 1,5}{PAPER 1} {PAPER 2} {PAPER 1} {AT 2,5} {PAPER 2} {PAPER 1} {AT 3,5} {PAPER 2} {PAPER 1} {AT 4,5} {PAPER 2} {PAPER 1} {AT 5,5} {PAPER 2} {PAPER 1} ": RETURN
+    IF u=2 THEN PRINT "{AT 1,5}{PAPER 2}   {AT 2,5}{PAPER 1}  {PAPER 2} {AT 3,5}   {AT 4,5} {PAPER 1}  {AT 5,5}{PAPER 2}   ": RETURN
+    IF u=3 THEN PRINT "{AT 1,5}{PAPER 2}   {AT 2,5}{PAPER 1}  {PAPER 2} {AT 3,5}   {AT 4,5}{PAPER 1}  {PAPER 2} {AT 5,5}   ": RETURN
+    IF u=4 THEN PRINT "{AT 1,5}{PAPER 2} {PAPER 1} {PAPER 2} {AT 2,5} {PAPER 1} {PAPER 2} {AT 3,5}   {AT 4,5}{PAPER 1}  {PAPER 2} {AT 5,5}{PAPER 1}  {PAPER 2} ": RETURN
     RETURN
 
-@dig_5:
-    IF dig=5 THEN PRINT AT 1,col; PAPER 2; "   "; AT 2,col; " "; PAPER 1; "  "; AT 3,col; PAPER 2; "   "; AT 4,col; PAPER 1; "  "; PAPER 2; " "; AT 5,col; "   ": RETURN
-    IF dig=6 THEN PRINT AT 1,col; PAPER 2; "   "; AT 2,col; " "; PAPER 1; "  "; AT 3,col; PAPER 2; "   "; AT 4,col; " "; PAPER 1; " "; PAPER 2; " "; AT 5,col; "   ": RETURN
-    IF dig=7 THEN PRINT AT 1,col; PAPER 2; "   "; AT 2,col; PAPER 1; "  "; PAPER 2; " "; AT 3,col; PAPER 1; "  "; PAPER 2; " "; AT 4,col; PAPER 1; "  "; PAPER 2; " "; AT 5,col; PAPER 1; "  "; PAPER 2; " ": RETURN
-    IF dig=8 THEN PRINT AT 1,col; PAPER 2; "   "; AT 2,col; " "; PAPER 1; " "; PAPER 2; " "; AT 3,col; "   "; AT 4,col; " "; PAPER 1; " "; PAPER 2; " "; AT 5,col; "   ": RETURN
-    IF dig=9 THEN PRINT AT 1,col; PAPER 2; "   "; AT 2,col; " "; PAPER 1; " "; PAPER 2; " "; AT 3,col; "   "; AT 4,col; PAPER 1; "  "; PAPER 2; " "; AT 5,col; PAPER 1; "  "; PAPER 2; " ": RETURN
-    
+@u_5:
+    IF u=5 THEN PRINT "{AT 1,5}{PAPER 2}   {AT 2,5} {PAPER 1}  {AT 3,5}{PAPER 2}   {AT 4,5}{PAPER 1}  {PAPER 2} {AT 5,5}   ": RETURN
+    IF u=6 THEN PRINT "{AT 1,5}{PAPER 2}   {AT 2,5} {PAPER 1}  {AT 3,5}{PAPER 2}   {AT 4,5} {PAPER 1} {PAPER 2} {AT 5,5}   ": RETURN
+    IF u=7 THEN PRINT "{AT 1,5}{PAPER 2}   {AT 2,5}{PAPER 1}  {PAPER 2} {AT 3,5}{PAPER 1}  {PAPER 2} {AT 4,5}{PAPER 1}  {PAPER 2} {AT 5,5}{PAPER 1}  {PAPER 2} ": RETURN
+    IF u=8 THEN PRINT "{AT 1,5}{PAPER 2}   {AT 2,5} {PAPER 1} {PAPER 2} {AT 3,5}   {AT 4,5} {PAPER 1} {PAPER 2} {AT 5,5}   ": RETURN
+    IF u=9 THEN PRINT "{AT 1,5}{PAPER 2}   {AT 2,5} {PAPER 1} {PAPER 2} {AT 3,5}   {AT 4,5}{PAPER 1}  {PAPER 2} {AT 5,5}{PAPER 1}  {PAPER 2} ": RETURN
+    RETURN
+
+@imprimir_decenas:
+    IF d > 4 THEN GO TO @d_5
+    IF d=0 THEN PRINT "{AT 1,1}{PAPER 2}   {AT 2,1} {PAPER 1} {PAPER 2} {AT 3,1} {PAPER 1} {PAPER 2} {AT 4,1} {PAPER 1} {PAPER 2} {AT 5,1}   ": RETURN
+    IF d=1 THEN PRINT "{AT 1,1}{PAPER 1} {PAPER 2} {PAPER 1} {AT 2,1} {PAPER 2} {PAPER 1} {AT 3,1} {PAPER 2} {PAPER 1} {AT 4,1} {PAPER 2} {PAPER 1} {AT 5,1} {PAPER 2} {PAPER 1} ": RETURN
+    IF d=2 THEN PRINT "{AT 1,1}{PAPER 2}   {AT 2,1}{PAPER 1}  {PAPER 2} {AT 3,1}   {AT 4,1} {PAPER 1}  {AT 5,1}{PAPER 2}   ": RETURN
+    IF d=3 THEN PRINT "{AT 1,1}{PAPER 2}   {AT 2,1}{PAPER 1}  {PAPER 2} {AT 3,1}   {AT 4,1}{PAPER 1}  {PAPER 2} {AT 5,1}   ": RETURN
+    IF d=4 THEN PRINT "{AT 1,1}{PAPER 2} {PAPER 1} {PAPER 2} {AT 2,1} {PAPER 1} {PAPER 2} {AT 3,1}   {AT 4,1}{PAPER 1}  {PAPER 2} {AT 5,1}{PAPER 1}  {PAPER 2} ": RETURN
+    RETURN
+
+@d_5:
+    IF d=5 THEN PRINT "{AT 1,1}{PAPER 2}   {AT 2,1} {PAPER 1}  {AT 3,1}{PAPER 2}   {AT 4,1}{PAPER 1}  {PAPER 2} {AT 5,1}   ": RETURN
+    IF d=6 THEN PRINT "{AT 1,1}{PAPER 2}   {AT 2,1} {PAPER 1}  {AT 3,1}{PAPER 2}   {AT 4,1} {PAPER 1} {PAPER 2} {AT 5,1}   ": RETURN
+    IF d=7 THEN PRINT "{AT 1,1}{PAPER 2}   {AT 2,1}{PAPER 1}  {PAPER 2} {AT 3,1}{PAPER 1}  {PAPER 2} {AT 4,1}{PAPER 1}  {PAPER 2} {AT 5,1}{PAPER 1}  {PAPER 2} ": RETURN
+    IF d=8 THEN PRINT "{AT 1,1}{PAPER 2}   {AT 2,1} {PAPER 1} {PAPER 2} {AT 3,1}   {AT 4,1} {PAPER 1} {PAPER 2} {AT 5,1}   ": RETURN
+    IF d=9 THEN PRINT "{AT 1,1}{PAPER 2}   {AT 2,1} {PAPER 1} {PAPER 2} {AT 3,1}   {AT 4,1}{PAPER 1}  {PAPER 2} {AT 5,1}{PAPER 1}  {PAPER 2} ": RETURN
     RETURN
 
 @game_over:
@@ -81,12 +96,12 @@ GO TO @pantalla_inicio
     BORDER 3: PAPER 1: INK 0: CLS
     PRINT AT 21,0; f$; FLASH 0
     ' sc=puntos, c1 y c2=cactus, pt=pterodactilo, py=jugador, j=salto, sx=x de sol, sm=puntos para siguiente movimiento del sol
-    LET sc=0: LET gp=12: LET c1=31: LET c2=c1+gp: LET c3=c2+gp: LET pt=0: LET py=20: LET oldpy=py: LET j=0: LET sm=3: LET nc=0: LET kc=0: LET dig=0: POKE 23560,0
+    LET sc=0: LET gp=12: LET c1=31: LET c2=c1+gp: LET c3=c2+gp: LET pt=0: LET py=20: LET oldpy=py: LET j=0: LET sm=3: LET nc=0: LET kc=0: LET su=0: POKE 23560,0
     PRINT AT 20, 5; PAPER 2; " "
     LET sx=29: LET nx=22: LET kx=8
 
     ' Inicializamos unidades y decenas a 0 y pintamos el "00" inicial:
-    LET u=0: LET d=0: LET dig=0: LET col=1: GO SUB @imprimirDigito: LET col=5: GO SUB @imprimirDigito
+    LET u=0: LET d=0: GO SUB @imprimir_decenas: GO SUB @imprimir_unidades
 
     GO SUB @redibujar_sol
     GO SUB @redibujar_nube
@@ -110,7 +125,7 @@ GO TO @pantalla_inicio
 
 @pantalla_inicio:
     ' --- INICIALIZACION ---
-    LET py=0: LET oldpy=0: LET c1=0: LET c2=0: LET c3=0: LET j=0: LET sc=0: LET pt=0: LET nx=0: LET nc=0: LET kx=0: LET kc=0
+    LET py=0: LET oldpy=0: LET c1=0: LET c2=0: LET c3=0: LET j=0: LET sc=0: LET pt=0: LET nx=0: LET nc=0: LET kx=0: LET kc=0: LET su=0
     LET y$ = "{CODE 19}{CODE 17}{CODE 16}{CODE 16}{CODE 17}{CODE 19}{CODE 20}"
     LET hs=0
     LET c$ = "{PAPER 4} {PAPER 1} "
