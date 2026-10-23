@@ -2,7 +2,7 @@ GO TO @pantalla_inicio
 
 @bucle_principal:
     ' Teclado / mando
-    IF PEEK 23560 THEN POKE 23560,0: IF NOT j THEN LET j=1
+    IF PEEK 23560 THEN POKE 23560,0: IF NOT j THEN LET j=1: BEEP 0.002,26
 
     ' Salto
     IF j THEN LET py=CODE y$(j): LET j=j+1: IF j>7 THEN LET j=0
@@ -34,7 +34,7 @@ GO TO @pantalla_inicio
     GO TO @bucle_principal
 
 @point:
-    LET sc=sc+1: BORDER 6: BEEP 0.001,40: BORDER 3: LET su=1
+    LET sc=sc+1: BORDER 6: BEEP 0.003,36: BEEP 0.004,45: BORDER 3: LET su=1
     RETURN
 
 @actualizarMarcadorYDificultad:
